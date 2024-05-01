@@ -1,7 +1,8 @@
 <script lang="ts">
     import {onMount} from "svelte";
+    import {supabase} from "$lib/supabaseClient";
 
-    let nombreUsuario: String = "Reuben";
+    let userName: string = '';
     let mensaje: String;
     onMount(() => {
         // Dependiendo de la hora mostrar un mensaje diferente
@@ -67,6 +68,30 @@
     //         darkMode.style.display = "block";
     //     }
     // }
+    // Function to get the user's name
+    const handleGetUserName = async () => {
+        const { data, error } = await supabase.auth.getUserIdentities();
+
+        if (error) {
+            console.error(error);
+        } else {
+            userName = data?.identities[0].identity_data?.first_name;
+        }
+    };
+
+    // Event listener for the auth state change
+    supabase.auth.onAuthStateChange((event) => {
+        if (event === 'SIGNED_IN') {
+            handleGetUserName();
+        } else if (event === 'SIGNED_OUT') {
+            window.location.href = '/';
+        }
+    });
+
+    const handleSignOut = async ()=>{
+        await supabase.auth.signOut()
+        window.location.href = "/";
+    };
 </script>
 
 <nav>
@@ -78,8 +103,8 @@
         <ul>
             <li><a href="/">Inicio</a></li>
         </ul>
-        <p>{nombreUsuario}</p>
-        <button id="cerrarSesion">Cerrar sesión</button>
+        <p>{userName}</p>
+        <button id="cerrarSesion" on:click={handleSignOut}>Cerrar sesión</button>
         <!--        <button id="lightDarkSwitch">-->
         <!--            <img id="darkMode" src="/darkMode.svg" alt="darkMode">-->
         <!--            <img id="lightMode" src="/lightMode.svg" alt="lightMode">-->

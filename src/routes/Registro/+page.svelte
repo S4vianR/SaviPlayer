@@ -22,6 +22,13 @@
                     }
                 }
             )
+
+            if (error) {
+                alert("Error al registrar usuario");
+            } else {
+                alert("Usuario registrado correctamente, favor de confirmar su correo electrónico");
+                window.location.href = "/";
+            }
         }
     };
 </script>
@@ -34,9 +41,9 @@
     <main>
         <section>
             <h1>Registro de usuario</h1>
-            <form>
+            <form on:submit={handleRegister}>
                 <label for="email">Correo:</label>
-                <input id="email" type="text" required bind:value={email}>
+                <input id="email" type="email" required bind:value={email}>
                 <label for="password">Contraseña</label>
                 <input id="password" type="password" required bind:value={password}>
                 <label for="repeatPassword">Repetir contraseña</label>
@@ -120,7 +127,7 @@
         border: 1px solid #fff;
     }
 
-    section input[type="text"],
+    section input[type="email"],
     section input[type="password"] {
         font-size: 1rem;
         font-weight: 500;
@@ -130,21 +137,23 @@
     section button {
         background-color: #fff;
         color: #000;
+        font-size: 1rem;
         border: none;
         font-weight: 600;
         padding: 0.5rem;
         border-radius: 0.375rem;
-        width: 7rem;
-        height: 2.5rem;
-        border-bottom: 2px solid rgba(0, 160, 255, 1);
+        width: 10rem;
+        height: 3rem;
+        border-bottom: 5px solid rgba(0, 160, 255, 1);
+        border-top: 5px solid #68e551;
         transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out;
     }
 
     section button:hover {
-        background-color: #000;
+        background-color: #2b2b2b;
         color: #fff;
-        border-color: #f0994a;
-        border-color: rgba(240, 153, 74, 1);
+        border-bottom-color: rgba(240, 153, 74, 1);
+        border-top-color: rgba(110,38,110);
         cursor: pointer;
     }
 </style>
