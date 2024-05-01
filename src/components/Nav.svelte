@@ -79,6 +79,7 @@
             <li><a href="/">Inicio</a></li>
         </ul>
         <p>{nombreUsuario}</p>
+        <button id="cerrarSesion">Cerrar sesión</button>
         <!--        <button id="lightDarkSwitch">-->
         <!--            <img id="darkMode" src="/darkMode.svg" alt="darkMode">-->
         <!--            <img id="lightMode" src="/lightMode.svg" alt="lightMode">-->
@@ -156,5 +157,20 @@
         background-color: transparent;
         border: none;
         cursor: pointer;
+    }
+
+    nav #cerrarSesion {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #fff;
+        background-color: rgba(255,255,255,0);
+        padding: 0.2rem;
+        border-radius: 0.2rem;
+        transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+    }
+
+    nav #cerrarSesion:hover {
+        background-color: rgba(255,255,255,1);
+        color: #000;
     }
 </style>
